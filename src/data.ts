@@ -1,24 +1,11 @@
-export interface ProjectData {
-  id: number;
-  name: string;
-}
-
-export interface TaskData {
-  id: number;
+export interface Todo {
+  id: string;
   title: string;
-  completed: boolean;
-  project_id: number;
+  description: string;
 }
 
-export const projects: ProjectData[] = [
-  { id: 1, name: "Learn React Native" },
-  { id: 2, name: "Workout" },
-];
-
-export const tasks: TaskData[] = [
-  { id: 1, title: "Install Node", completed: true, project_id: 1 },
-  { id: 2, title: "Install React Native CLI:", completed: false, project_id: 1 },
-  { id: 3, title: "Install Xcode", completed: false, project_id: 1 },
-  { id: 4, title: "Morning Jog", completed: true, project_id: 2 },
-  { id: 5, title: "Visit the gym", completed: false, project_id: 2 },
+export const todos: Todo[] = [
+  { id: "1", title: "todo 1", description: "todo 1 details" },
+  { id: "2", title: "todo 2", description: "todo 2 details" },
+  { id: "3", title: "todo 3", description: "todo 3 details" },
 ];

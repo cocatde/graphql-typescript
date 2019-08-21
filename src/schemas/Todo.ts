@@ -1,8 +1,7 @@
-import { ID, Field, Int, ObjectType } from 'type-graphql';
+import { ID, Field, ObjectType } from 'type-graphql';
 
 @ObjectType({ description: "Object representing todo" })
 export default class Todo {
-
   @Field(type => ID)
   readonly id: string;
 
