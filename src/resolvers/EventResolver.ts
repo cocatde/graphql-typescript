@@ -10,7 +10,7 @@ export class EventResolver {
     @InjectRepository(Event) private readonly eventRepository: Repository<Event>
   ) { }
 
-  @Query(returns => Event, { nullable: true})
+  @Query(returns => Event, { nullable: true })
   event(@Arg("id") eventId: string) {
     return this.eventRepository.findOne(eventId)
   }
