@@ -13,13 +13,17 @@
   "license": "ISC",
   "dependencies": {
     "graphql-yoga": "^1.18.2",
+    "pg": "^7.12.1",
     "reflect-metadata": "^0.1.13",
-    "type-graphql": "^0.17.5"
+    "type-graphql": "^0.17.5",
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.18",
+    "typeorm-typedi-extensions": "^0.2.3"
   },
   "devDependencies": {
-    "ts-node": "^8.3.0",
     "@types/node": "^12.7.2",
     "@types/ws": "^6.0.2",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   }
 }
