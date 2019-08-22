@@ -1,0 +1,28 @@
+---
+version: '2.0'
+services:
+  gql-db:
+    image: postgres:11.5
+    restart: always
+    # opening port for development use
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+
+  gql-service:
+    build: .
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/app
+    command: 'yarn start:dev'
+    environment:
+      POSTGRES_HOST: gql-db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+
+    
