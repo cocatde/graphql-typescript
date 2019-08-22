@@ -25,8 +25,16 @@ export class EventResolver {
   @Mutation(returns => Event)
   async addEvent(
     @Arg("event") eventInput: EventInput,
+    @Arg("userId") userId: string,
   ): Promise<Event> {
-    const event = this.eventRepository.create(eventInput);
+    const user = await this.userRepository.findOneOrFail(userId);
+    if (user.privilege_level !== 0) {
+      throw Error("You are not organizor");
+    }
+    const event = this.eventRepository.create({
+      ...eventInput,
+      organizer: user,
+    });
     return await this.eventRepository.save(event);
   }
 

@@ -16,9 +16,6 @@ export class EventInput implements Partial<Event> {
   @Field()
   eventDate: string
 
-  @Field()
-  organizerId: string
-
   @Field(type => Float)
   cost: number
 }
