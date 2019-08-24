@@ -40,6 +40,15 @@ export class EventResolver {
     return await this.eventRepository.save(event);
   }
 
+  @Mutation(returns => Boolean)
+  async deleteEvent(@Arg("eventId") eventId: string) {
+    await this.enrollmentRepository.delete({
+      eventId,
+    });
+    const eventDeleteResult = await this.eventRepository.delete(eventId);
+    return eventDeleteResult.affected && eventDeleteResult.affected > 0;
+  }
+
   @FieldResolver()
   async organizer(@Root() event: Event): Promise<User> {
     return (await this.userRepository.findOne(event.organizerId, { cache: 1000 }))!;

@@ -20,8 +20,8 @@ export class EnrollmentResolver {
   ): Promise<Enrollment> {
     const user = await this.userRepository.findOneOrFail(enrollmentInput.userId);
     const event = await this.eventRepository.findOneOrFail(enrollmentInput.eventId);
-    const previousEnrollments = await this.enrollmentRepository.find({ user, event});
-    if(previousEnrollments.length !== 0) {
+    const previousEnrollments = await this.enrollmentRepository.find({ user, event });
+    if (previousEnrollments.length !== 0) {
       throw Error("The user already enrolled");
     }
     const enrollment = this.enrollmentRepository.create({
