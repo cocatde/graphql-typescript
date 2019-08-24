@@ -1,6 +1,7 @@
 import { ID, Field, ObjectType, Float } from 'type-graphql';
-import { ManyToOne, PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
+import { OneToMany, ManyToOne, PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
 import User from "./User";
+import Enrollment from "./Enrollment"
 
 @Entity()
 @ObjectType()
@@ -29,8 +30,12 @@ export default class Event {
   @ManyToOne(type => User, user => user.events)
   @Field(type => User)
   organizer: User
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   organizerId: string
+
+  @OneToMany(type => Enrollment, enrollment => enrollment.event)
+  @Field(type => [Enrollment])
+  enrollments: Enrollment[];
 
   @Column({ type: 'double precision' })
   @Field(type => Float)

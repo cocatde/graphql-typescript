@@ -1,6 +1,7 @@
 import { ID, Field, ObjectType, Int } from 'type-graphql';
 import { OneToMany, PrimaryGeneratedColumn, Column, Entity } from 'typeorm';
 import Event from "./Event";
+import Enrollment from "./Enrollment"
 
 @Entity()
 @ObjectType()
@@ -28,9 +29,13 @@ export default class User {
 
   @Column({ type: "int2" })
   @Field(type => Int)
-  privilege_level: number
+  privilegeLevel: number
 
   @OneToMany(type => Event, event => event.organizer)
   @Field(type => [Event])
   events: Event[];
+
+  @OneToMany(type => Enrollment, enrollment => enrollment.user)
+  @Field(type => [Enrollment])
+  enrollments: Enrollment[];
 }

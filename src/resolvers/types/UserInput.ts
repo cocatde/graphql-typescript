@@ -17,5 +17,5 @@ export class UserInput implements Partial<User> {
   email: string
 
   @Field(type => Int)
-  privilege_level: number
+  privilegeLevel: number
 }
