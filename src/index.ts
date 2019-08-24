@@ -3,10 +3,12 @@ import { Container } from "typedi";
 import * as TypeORM from "typeorm";
 import { GraphQLServer } from "graphql-yoga";
 import { buildSchema } from "type-graphql";
-import Event from "./schemas/Event";
 import User from "./schemas/User";
-import { EventResolver } from "./resolvers/EventResolver";
+import Event from "./schemas/Event";
+import Enrollment from "./schemas/Enrollment";
 import { UserResolver } from "./resolvers/UserResolver";
+import { EventResolver } from "./resolvers/EventResolver";
+import { EnrollmentResolver } from "./resolvers/EnrollmentResolver";
 
 TypeORM.useContainer(Container);
 
@@ -19,16 +21,16 @@ async function bootstrap() {
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       port: 5432,
-      entities: [Event, User],
+      entities: [Event, User, Enrollment],
       synchronize: true,
       logger: "advanced-console",
       logging: "all",
-      dropSchema: true,
+      // dropSchema: true,
       cache: true,
     });
 
     const schema = await buildSchema({
-      resolvers: [UserResolver, EventResolver],
+      resolvers: [UserResolver, EventResolver, EnrollmentResolver],
       container: Container,
     });
 

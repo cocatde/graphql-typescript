@@ -3,13 +3,15 @@ import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import User from "../schemas/User";
 import Event from "../schemas/Event";
+import Enrollment from "../schemas/Enrollment";
 import { EventInput } from "./types/EventInput";
 
 @Resolver(Event)
 export class EventResolver {
   constructor(
     @InjectRepository(Event) private readonly eventRepository: Repository<Event>,
-    @InjectRepository(User) private readonly userRepository: Repository<User>
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Enrollment) private readonly enrollmentRepository: Repository<Enrollment>,
   ) { }
 
   @Query(returns => Event, { nullable: true })
@@ -41,5 +43,12 @@ export class EventResolver {
   @FieldResolver()
   async organizer(@Root() event: Event): Promise<User> {
     return (await this.userRepository.findOne(event.organizerId, { cache: 1000 }))!;
+  }
+
+  @FieldResolver()
+  async enrollments(@Root() event: Event): Promise<Enrollment[]> {
+    return await this.enrollmentRepository.find({
+      event,
+    });
   }
 }
