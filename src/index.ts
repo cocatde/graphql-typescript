@@ -9,6 +9,7 @@ import Enrollment from "./schemas/Enrollment";
 import { UserResolver } from "./resolvers/UserResolver";
 import { EventResolver } from "./resolvers/EventResolver";
 import { EnrollmentResolver } from "./resolvers/EnrollmentResolver";
+import { seedDatabase } from './seed';
 
 TypeORM.useContainer(Container);
 
@@ -25,9 +26,11 @@ async function bootstrap() {
       synchronize: true,
       logger: "advanced-console",
       logging: "all",
-      // dropSchema: true,
+      dropSchema: true,
       cache: true,
     });
+
+    await seedDatabase();
 
     const schema = await buildSchema({
       resolvers: [UserResolver, EventResolver, EnrollmentResolver],
